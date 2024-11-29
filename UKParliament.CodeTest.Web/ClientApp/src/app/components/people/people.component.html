@@ -1,0 +1,23 @@
+<h1 class="mb-4">People Manager</h1>
+
+<div class="row">
+  <section class="col-md">
+    <h2>Select a person</h2>
+
+    <div class="list-group mb-4">
+      <button *ngFor="let person of people"
+              (click)="personSelected(person)"
+              type="button"
+              [ngClass]="{'list-group-item': true, 'list-group-item-action': true, active: selectedPerson === person}">
+        {{person.firstName}} {{person.lastName}}
+      </button>
+    </div>
+  </section>
+
+  <section class="col-md">
+    <h2>Create or edit a person</h2>
+
+    <people-editor (formActioned)="reset()" [person]="selectedPerson" />
+  </section>
+</div>
+
