@@ -3,7 +3,7 @@ using UKParliament.CodeTest.Data.Entities;
 
 namespace UKParliament.CodeTest.Data;
 
-public class PersonManagerContext : DbContext
+public class PersonManagerContext : DbContext, IPersonManagerContext
 {
     public PersonManagerContext(DbContextOptions<PersonManagerContext> options) : base(options)
     {

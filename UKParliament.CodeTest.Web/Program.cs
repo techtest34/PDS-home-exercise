@@ -16,6 +16,7 @@ public class Program
 
         builder.Services.AddDbContext<PersonManagerContext>(op => op.UseInMemoryDatabase("PersonManager"));
 
+        builder.Services.AddScoped<IPersonManagerContext, PersonManagerContext>();
         builder.Services.AddScoped<IPersonService, PersonService>();
 
         var app = builder.Build();
