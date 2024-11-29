@@ -19,6 +19,7 @@ public class Program
 
         builder.Services.AddScoped<IPersonManagerContext, PersonManagerContext>();
         builder.Services.AddScoped<IPersonService, PersonService>();
+        builder.Services.AddScoped<IPersonRepository, PersonRepository>();
         builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
         var app = builder.Build();
