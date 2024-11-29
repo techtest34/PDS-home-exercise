@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using UKParliament.CodeTest.Data.Entities;
 
 namespace UKParliament.CodeTest.Data;
 
