@@ -1,6 +1,11 @@
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using UKParliament.CodeTest.Data;
+using UKParliament.CodeTest.Data.Repositories;
 using UKParliament.CodeTest.Services;
+using UKParliament.CodeTest.Services.Mappers;
+using UKParliament.CodeTest.Services.RequestResponseModels;
+using UKParliament.CodeTest.Services.Validators;
 
 namespace UKParliament.CodeTest.Web;
 
@@ -16,7 +21,14 @@ public class Program
 
         builder.Services.AddDbContext<PersonManagerContext>(op => op.UseInMemoryDatabase("PersonManager"));
 
+        builder.Services.AddScoped<IPersonManagerContext, PersonManagerContext>();
+        builder.Services.AddScoped<IPersonMapper, PersonMapper>();
         builder.Services.AddScoped<IPersonService, PersonService>();
+        builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+        builder.Services.AddScoped<IDepartmentMapper, DepartmentMapper>();
+        builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+        builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+        builder.Services.AddScoped<IValidator<PersonRequest>, PersonRequestValidator>();
 
         var app = builder.Build();
 
