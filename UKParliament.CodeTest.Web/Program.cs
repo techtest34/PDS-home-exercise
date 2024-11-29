@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using UKParliament.CodeTest.Data;
 using UKParliament.CodeTest.Data.Repositories;
 using UKParliament.CodeTest.Services;
+using UKParliament.CodeTest.Services.Mappers;
 
 namespace UKParliament.CodeTest.Web;
 
@@ -20,6 +21,7 @@ public class Program
         builder.Services.AddScoped<IPersonManagerContext, PersonManagerContext>();
         builder.Services.AddScoped<IPersonService, PersonService>();
         builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+        builder.Services.AddScoped<IDepartmentMapper, DepartmentMapper>();
         builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
         var app = builder.Build();
