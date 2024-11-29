@@ -46,6 +46,12 @@
     <div class="invalid-feedback" *ngIf="displayError('departmentId')">Choose department</div>
   </div>
 
+  <div class="alert alert-danger" *ngIf="summaryErrors.length > 0">
+    <ul>
+      <li *ngFor="let error of summaryErrors">{{error}}</li>
+    </ul>
+  </div>
+
   <button class="btn btn-primary" type="submit">Submit</button>
   <button class="btn btn-secondary ms-2" type="button" (click)="clear()">Clear</button>
 

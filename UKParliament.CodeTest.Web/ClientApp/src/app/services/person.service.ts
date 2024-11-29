@@ -17,11 +17,12 @@ export class PersonService {
     return this.http.get<PersonViewModel[]>(this.baseUrl + `api/people/`)
   }
 
-  create(body: PersonViewModel): Observable<Object> {
-    return this.http.post(this.baseUrl + `api/people`, body);
-  }
+  savePerson(body: PersonViewModel, personId?: number): Observable<Object> {
+    if (personId) {
+      body.id = personId
+      return this.http.put(this.baseUrl + `api/people/${personId}`, body)
+    }
 
-  update(id: number, body: PersonViewModel): Observable<Object> {
-    return this.http.put(this.baseUrl + `api/people/${id}`, body);
+    return this.http.post(this.baseUrl + `api/people`, body);
   }
 }

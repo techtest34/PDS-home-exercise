@@ -2,9 +2,11 @@ import { Component, inject, input, output, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { PersonViewModel } from '../../../models/person-view-model';
+import { ErrorMessage } from '../../../models/error-message';
 import { DepartmentViewModel } from '../../../models/department-view-model';
 import { PersonService } from '../../../services/person.service';
 import { DepartmentService } from '../../../services/department.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'people-editor',
@@ -18,6 +20,7 @@ export class PeopleEditorComponent implements OnInit {
   formActioned = output<void>();
 
   departments: DepartmentViewModel[] = [];
+  summaryErrors: string[] = []
 
   peopleForm = inject(FormBuilder).group({
     firstName: ['', Validators.required],
@@ -47,12 +50,16 @@ export class PeopleEditorComponent implements OnInit {
     const body = this.peopleForm.value as PersonViewModel
     const personId = this.person()?.id
 
-    if (personId) {
-      body.id = personId
-      this.personService.update(personId, body).subscribe(() => this.clear())
-    } else {
-      this.personService.create(body).subscribe(() => this.clear())
-    }
+    this.personService.savePerson(body, personId).subscribe(
+      _ => this.clear(),
+      errorResponse => {
+        if (errorResponse instanceof HttpErrorResponse && Array.isArray(errorResponse.error)) {
+          this.summaryErrors = errorResponse.error.map((error: ErrorMessage) => {
+            return error.errorMessage;
+          }) as string[]
+        }
+      }
+    )
   }
 
   getDepartments(): void {
