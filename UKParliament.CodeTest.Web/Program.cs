@@ -23,6 +23,7 @@ public class Program
         builder.Services.AddScoped<IPersonService, PersonService>();
         builder.Services.AddScoped<IPersonRepository, PersonRepository>();
         builder.Services.AddScoped<IDepartmentMapper, DepartmentMapper>();
+        builder.Services.AddScoped<IDepartmentService, DepartmentService>();
         builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
         var app = builder.Build();
