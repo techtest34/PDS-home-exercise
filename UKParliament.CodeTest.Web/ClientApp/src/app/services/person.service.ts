@@ -9,8 +9,19 @@ import { PersonViewModel } from '../models/person-view-model';
 export class PersonService {
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
-  // Below is some sample code to help get you started calling the API
   getById(id: number): Observable<PersonViewModel> {
-    return this.http.get<PersonViewModel>(this.baseUrl + `api/person/${id}`)
+    return this.http.get<PersonViewModel>(this.baseUrl + `api/people/${id}`)
+  }
+
+  getAll(): Observable<PersonViewModel[]> {
+    return this.http.get<PersonViewModel[]>(this.baseUrl + `api/people/`)
+  }
+
+  create(body: PersonViewModel): Observable<Object> {
+    return this.http.post(this.baseUrl + `api/people`, body);
+  }
+
+  update(id: number, body: PersonViewModel): Observable<Object> {
+    return this.http.put(this.baseUrl + `api/people/${id}`, body);
   }
 }
